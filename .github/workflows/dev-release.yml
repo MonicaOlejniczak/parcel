@@ -4,6 +4,8 @@
 name: dev-release
 
 on:
+  push:
+    branches: [caching]
   workflow_dispatch:
 
 jobs:
