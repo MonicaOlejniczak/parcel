@@ -44,6 +44,13 @@ jobs:
       - uses: Swatinem/rust-cache@v2
         with:
           shared-key: ${{ matrix.name }}
+          workspaces: |
+            crates/json-comments-rs
+            crates/macros
+            crates/node-bindings
+            packages/transformers/js/core
+            packages/utils/dev-dep-resolver
+            packages/utils/node-resolver-rs
       - name: Remove CommandLineTools SDKs
         if: ${{ matrix.target == 'aarch64-apple-darwin' }}
         run: sudo rm -Rf /Library/Developer/CommandLineTools/SDKs/*;
