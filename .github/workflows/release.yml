@@ -45,12 +45,12 @@ jobs:
         with:
           shared-key: ${{ matrix.name }}
           workspaces: |
-            crates/json-comments-rs
-            crates/macros
-            crates/node-bindings
-            packages/transformers/js/core
-            packages/utils/dev-dep-resolver
-            packages/utils/node-resolver-rs
+            crates/json-comments-rs -> ../../target
+            crates/macros -> ../../target
+            crates/node-bindings -> ../../target
+            packages/transformers/js/core -> ../../../../target
+            packages/utils/dev-dep-resolver -> ../../../target
+            packages/utils/node-resolver-rs -> ../../../target
       - name: Remove CommandLineTools SDKs
         if: ${{ matrix.target == 'aarch64-apple-darwin' }}
         run: sudo rm -Rf /Library/Developer/CommandLineTools/SDKs/*;
