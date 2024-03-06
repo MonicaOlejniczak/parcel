@@ -41,16 +41,18 @@ jobs:
           toolchain: stable
           target: ${{ matrix.target }}
       - uses: bahmutov/npm-install@v1.8.35
-      - uses: Swatinem/rust-cache@v2
+      - uses: actions/cache@v3
         with:
-          shared-key: ${{ matrix.name }}
-          workspaces: |
-            crates/json-comments-rs -> ../../target
-            crates/macros -> ../../target
-            crates/node-bindings -> ../../target
-            packages/transformers/js/core -> ../../../../target
-            packages/utils/dev-dep-resolver -> ../../../target
-            packages/utils/node-resolver-rs -> ../../../target
+          key: ${{ matrix.name }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+          path: |
+            ~/.cargo/bin/
+            ~/.cargo/git/db/
+            ~/.cargo/registry/cache/
+            ~/.cargo/registry/index/
+            target/
+      # - uses: Swatinem/rust-cache@v2
+      #   with:
+      #     shared-key: ${{ matrix.name }}
       - name: Remove CommandLineTools SDKs
         if: ${{ matrix.target == 'aarch64-apple-darwin' }}
         run: sudo rm -Rf /Library/Developer/CommandLineTools/SDKs/*;
